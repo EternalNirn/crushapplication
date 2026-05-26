@@ -501,8 +501,8 @@
         </div>
 
         <div class="form-footer">
-          <button class="btn-withdraw-sm" onclick="withdraw()">Withdraw</button>
-          <button class="btn-submit" id="submitBtn" onclick="submitApp()">Submit application →</button>
+          <button class="btn-withdraw-sm">Withdraw</button>
+          <button class="btn-submit" id="submitBtn">Submit application →</button>
         </div>
 
       </div>
@@ -514,7 +514,7 @@
         <span class="ref-badge" id="refBadge">Ref: CF-XXXXX-2026</span>
         <p style="font-size:0.85rem;color:var(--ink-light);">You will not be notified if unsuccessful.</p>
         <br>
-        <button class="btn-submit" style="max-width:220px" onclick="resetForm()">Submit another →</button>
+        <button class="btn-submit" style="max-width:220px">Submit another →</button>
       </div>
 
     </div>
@@ -634,4 +634,8 @@
       alert('Application withdrawn. We respect your decision. (We are sad.)');
     }
   }
+ 
+document.getElementById('submitBtn').addEventListener('click', submitApp);
+document.getElementById('withdrawBtn').addEventListener('click', withdraw);
+document.getElementById('resetBtn').addEventListener('click', resetForm);
 </script>
