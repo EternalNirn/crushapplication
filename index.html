@@ -429,22 +429,22 @@
         <div class="two-col">
           <div class="field-group">
             <label>First name *</label>
-            <input type="text" placeholder="e.g. Romeo">
+            <input type="text" id="fname" placeholder="e.g. Romeo">
           </div>
           <div class="field-group">
             <label>Last name *</label>
-            <input type="text" placeholder="e.g. Montague">
+            <input type="text" id="lname" placeholder="e.g. Montague">
           </div>
         </div>
 
         <div class="two-col">
           <div class="field-group">
             <label>Age *</label>
-            <input type="number" placeholder="18+" min="18">
+            <input type="number" id="age" placeholder="18+" min="18">
           </div>
           <div class="field-group">
             <label>Star sign</label>
-            <select>
+            <select id="sign">
               <option value="">— select —</option>
               <option>Aries ♈</option><option>Taurus ♉</option><option>Gemini ♊</option>
               <option>Cancer ♋</option><option>Leo ♌</option><option>Virgo ♍</option>
@@ -457,7 +457,7 @@
 
         <div class="field-group">
           <label>Primary love language *</label>
-          <select>
+          <select id="lovelang">
             <option value="">— select one —</option>
             <option>Words of affirmation</option>
             <option>Acts of service</option>
@@ -472,17 +472,17 @@
 
         <div class="field-group">
           <label>Why should you be considered? * (50–5,000 words)</label>
-          <textarea placeholder="Include relevant achievements, fun facts, and at least one embarrassing story to demonstrate vulnerability…"></textarea>
+          <textarea id="why" placeholder="Include relevant achievements, fun facts, and at least one embarrassing story to demonstrate vulnerability…"></textarea>
         </div>
 
         <div class="field-group">
           <label>Dealbreakers you do NOT have (check all that apply)</label>
           <div class="checkbox-list" style="margin-top:0.5rem">
-            <label class="check-item"><input type="checkbox"> Chews with mouth open</label>
-            <label class="check-item"><input type="checkbox"> Types "ur" instead of "your"</label>
-            <label class="check-item"><input type="checkbox"> Leaves cupboard doors open</label>
-            <label class="check-item"><input type="checkbox"> Doesn't read the menu before ordering</label>
-            <label class="check-item"><input type="checkbox"> Replies to texts next-day without explanation</label>
+            <label class="check-item"><input type="checkbox" class="db-check" data-label="Chews with mouth open"> Chews with mouth open</label>
+            <label class="check-item"><input type="checkbox" class="db-check" data-label="Types ur instead of your"> Types "ur" instead of "your"</label>
+            <label class="check-item"><input type="checkbox" class="db-check" data-label="Leaves cupboard doors open"> Leaves cupboard doors open</label>
+            <label class="check-item"><input type="checkbox" class="db-check" data-label="Does not read the menu before ordering"> Doesn't read the menu before ordering</label>
+            <label class="check-item"><input type="checkbox" class="db-check" data-label="Replies to texts next-day without explanation"> Replies to texts next-day without explanation</label>
           </div>
         </div>
 
@@ -490,21 +490,21 @@
 
         <div class="field-group">
           <label>Name of best friend who can vouch for you *</label>
-          <input type="text" placeholder="They will be contacted immediately">
+          <input type="text" id="bff" placeholder="They will be contacted immediately">
         </div>
 
         <div class="field-group">
           <label>Name of one ex who still likes you</label>
-          <input type="text" placeholder="Optional — but impressive">
+          <input type="text" id="exref" placeholder="Optional — but impressive">
         </div>
 
         <span class="form-section-label">Section D — Declaration</span>
 
         <div class="checkbox-list">
-          <label class="check-item"><input type="checkbox"> I confirm I am not currently on a situationship with someone else</label>
-          <label class="check-item"><input type="checkbox"> I agree to give at least 3 business days' notice before going quiet</label>
-          <label class="check-item"><input type="checkbox"> I understand this application does not guarantee reciprocation</label>
-          <label class="check-item"><input type="checkbox"> I have read and understood the Terms & Feelings (I have not)</label>
+          <label class="check-item"><input type="checkbox" class="decl-check" data-label="Not on a situationship"> I confirm I am not currently on a situationship with someone else</label>
+          <label class="check-item"><input type="checkbox" class="decl-check" data-label="3 business days notice"> I agree to give at least 3 business days' notice before going quiet</label>
+          <label class="check-item"><input type="checkbox" class="decl-check" data-label="No guarantee of reciprocation"> I understand this application does not guarantee reciprocation</label>
+          <label class="check-item"><input type="checkbox" class="decl-check" data-label="Read Terms and Feelings (I have not)"> I have read and understood the Terms & Feelings (I have not)</label>
         </div>
 
         <div class="disclaimer-box">
@@ -513,7 +513,7 @@
 
         <div class="form-footer">
           <button class="btn-withdraw-sm" onclick="withdraw()">Withdraw</button>
-          <button class="btn-submit" onclick="submitApp()">Submit application →</button>
+          <button class="btn-submit" id="submitBtn" onclick="submitApp()">Submit application →</button>
         </div>
 
       </div>
@@ -541,6 +541,9 @@
 </footer>
 
 <script>
+  const SUPABASE_URL = 'https://pliuzsnirpwynuvakvie.supabase.co';
+  const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBsaXV6c25pcnB3eW51dmFrdmllIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk3NzcyMDksImV4cCI6MjA5NTM1MzIwOX0.eNJNTmD3gqvqhcVkOoYkZeLjLdOzVmDTL7kXTlDbIlg';
+
   // Scroll reveal
   const reveals = document.querySelectorAll('.reveal');
   const io = new IntersectionObserver((entries) => {
@@ -553,17 +556,93 @@
   }, { threshold: 0.1 });
   reveals.forEach(r => io.observe(r));
 
-  function submitApp() {
-    document.getElementById('formBody').style.display = 'none';
-    const sv = document.getElementById('successView');
-    sv.style.display = 'block';
-    const ref = 'CF-' + Math.floor(Math.random()*90000+10000) + '-2026';
-    document.getElementById('refBadge').textContent = 'Ref: ' + ref;
+  async function submitApp() {
+    const firstName = document.getElementById('fname').value.trim();
+    const lastName  = document.getElementById('lname').value.trim();
+    const age       = document.getElementById('age').value;
+    const starSign  = document.getElementById('sign').value;
+    const loveLang  = document.getElementById('lovelang').value;
+    const why       = document.getElementById('why').value.trim();
+    const bff       = document.getElementById('bff').value.trim();
+    const exRef     = document.getElementById('exref').value.trim();
+
+    const dealbreakers = [...document.querySelectorAll('.db-check')]
+      .filter(c => c.checked).map(c => c.dataset.label);
+
+    const declarations = [...document.querySelectorAll('.decl-check')]
+      .filter(c => c.checked).map(c => c.dataset.label);
+
+    // Validation
+    const missing = [];
+    if (!firstName || !lastName) missing.push('your name');
+    if (!age) missing.push('your age');
+    if (!loveLang) missing.push('your love language');
+    if (!why) missing.push('your written statement');
+    if (!bff) missing.push('a reference');
+    if (declarations.length < 2) missing.push('required declarations (at least the first two)');
+
+    if (missing.length) {
+      alert('Your application is incomplete. Please provide: ' + missing.join(', ') + '.\n\nWe take this very seriously.');
+      return;
+    }
+
+    // Disable button while saving
+    const btn = document.getElementById('submitBtn');
+    btn.textContent = 'Submitting…';
+    btn.disabled = true;
+
+    const ref = 'CF-' + Math.floor(Math.random() * 90000 + 10000) + '-2026';
+
+    try {
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/applications`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': SUPABASE_KEY,
+          'Authorization': `Bearer ${SUPABASE_KEY}`,
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify({
+          first_name:    firstName,
+          last_name:     lastName,
+          age:           parseInt(age),
+          star_sign:     starSign || null,
+          love_language: loveLang,
+          why_statement: why,
+          no_dealbreakers: dealbreakers,
+          best_friend:   bff,
+          ex_reference:  exRef || null,
+          declarations:  declarations,
+          ref_number:    ref
+        })
+      });
+
+      if (!res.ok) {
+        const err = await res.text();
+        throw new Error(err);
+      }
+
+      document.getElementById('formBody').style.display = 'none';
+      const sv = document.getElementById('successView');
+      sv.style.display = 'block';
+      document.getElementById('refBadge').textContent = 'Ref: ' + ref;
+
+    } catch (err) {
+      console.error(err);
+      alert('Something went wrong saving your application. Your feelings are valid but the server disagreed.\n\nError: ' + err.message);
+      btn.textContent = 'Submit application →';
+      btn.disabled = false;
+    }
   }
 
   function resetForm() {
     document.getElementById('formBody').style.display = 'block';
     document.getElementById('successView').style.display = 'none';
+    document.getElementById('submitBtn').textContent = 'Submit application →';
+    document.getElementById('submitBtn').disabled = false;
+    document.querySelectorAll('input[type=text], input[type=number], textarea').forEach(el => el.value = '');
+    document.querySelectorAll('select').forEach(el => el.value = '');
+    document.querySelectorAll('input[type=checkbox]').forEach(el => el.checked = false);
   }
 
   function withdraw() {
