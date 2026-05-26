@@ -555,9 +555,6 @@
     const bff       = document.getElementById('bff').value.trim();
     const exRef     = document.getElementById('exref').value.trim();
 
-    const dealbreakers = [...document.querySelectorAll('.db-check')]
-      .filter(c => c.checked).map(c => c.dataset.label);
-
     const declarations = [...document.querySelectorAll('.decl-check')]
       .filter(c => c.checked).map(c => c.dataset.label);
 
@@ -575,7 +572,6 @@
       return;
     }
 
-    // Disable button while saving
     const btn = document.getElementById('submitBtn');
     btn.textContent = 'Submitting…';
     btn.disabled = true;
@@ -598,7 +594,6 @@
           star_sign:     starSign || null,
           love_language: loveLang,
           why_statement: why,
-          no_dealbreakers: dealbreakers,
           best_friend:   bff,
           ex_reference:  exRef || null,
           declarations:  declarations,
@@ -640,5 +635,3 @@
     }
   }
 </script>
-</body>
-</html>
