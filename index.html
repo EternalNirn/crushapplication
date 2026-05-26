@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apply to Be My Crush — Official Portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --rose: #D4537E;
+    --rose-light: #F7D6E3;
+    --rose-pale: #FDF0F5;
+    --rose-dark: #8C2A4E;
+    --cream: #FBF7F2;
+    --ink: #1C1410;
+    --ink-mid: #5C4A42;
+    --ink-light: #A0897E;
+    --gold: #C8943A;
+    --gold-light: #F5E6C8;
+    --border: rgba(180,140,120,0.2);
+    --serif: 'Playfair Display', Georgia, serif;
+    --sans: 'DM Sans', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--cream);
+    color: var(--ink);
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z' fill='%23D4537E'/%3E%3C/svg%3E") 12 12, auto;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 4rem;
+    background: rgba(251,247,242,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo { font-family: var(--serif); font-size: 1.1rem; color: var(--rose-dark); font-style: italic; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { font-size: 0.8rem; font-weight: 500; color: var(--ink-mid); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--rose); }
+  .nav-cta { background: var(--rose); color: white; border: none; padding: 0.55rem 1.4rem; border-radius: 100px; font-family: var(--sans); font-size: 0.8rem; font-weight: 500; cursor: pointer; transition: background 0.2s, transform 0.15s; text-decoration: none; }
+  .nav-cta:hover { background: var(--rose-dark); transform: scale(1.03); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center;
+    padding: 8rem 2rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0; pointer-events: none; z-index: 0;
+    background: radial-gradient(ellipse 70% 60% at 50% 40%, #F7D6E3 0%, transparent 70%);
+  }
+  .hero-dots {
+    position: absolute; inset: 0; pointer-events: none;
+    background-image: radial-gradient(circle, rgba(212,83,126,0.12) 1px, transparent 1px);
+    background-size: 28px 28px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 80%);
+  }
+  .hero-stamp {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: var(--gold-light); color: var(--gold);
+    border: 1px solid var(--gold); border-radius: 100px;
+    padding: 0.35rem 1rem; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+    margin-bottom: 2rem; position: relative; z-index: 1;
+    animation: fadeUp 0.6s ease both;
+  }
+  .hero h1 {
+    font-family: var(--serif);
+    font-size: clamp(3rem, 8vw, 6.5rem);
+    line-height: 1.05;
+    color: var(--ink);
+    position: relative; z-index: 1;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+  .hero h1 em { color: var(--rose); font-style: italic; }
+  .hero-sub {
+    max-width: 540px; margin: 1.8rem auto 0;
+    font-size: 1.05rem; line-height: 1.7; color: var(--ink-mid);
+    position: relative; z-index: 1;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+  .hero-actions {
+    display: flex; gap: 1rem; margin-top: 2.5rem; justify-content: center; flex-wrap: wrap;
+    position: relative; z-index: 1;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+  .btn-primary {
+    background: var(--rose); color: white; border: none;
+    padding: 0.9rem 2.4rem; border-radius: 100px;
+    font-family: var(--sans); font-size: 0.95rem; font-weight: 500;
+    cursor: pointer; text-decoration: none; display: inline-block;
+    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    box-shadow: 0 4px 20px rgba(212,83,126,0.3);
+  }
+  .btn-primary:hover { background: var(--rose-dark); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(212,83,126,0.4); }
+  .btn-ghost {
+    background: transparent; color: var(--ink-mid); border: 1px solid var(--border);
+    padding: 0.9rem 2.4rem; border-radius: 100px;
+    font-family: var(--sans); font-size: 0.95rem; font-weight: 500;
+    cursor: pointer; text-decoration: none; display: inline-block;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-ghost:hover { border-color: var(--rose); color: var(--rose); }
+  .hero-note { font-size: 0.75rem; color: var(--ink-light); margin-top: 1rem; position: relative; z-index: 1; animation: fadeUp 0.6s 0.4s ease both; }
+
+  /* ── STATS ── */
+  .stats {
+    display: flex; justify-content: center; gap: 0; flex-wrap: wrap;
+    border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    margin: 0; background: white;
+  }
+  .stat {
+    flex: 1; min-width: 160px; padding: 2rem 2.5rem; text-align: center;
+    border-right: 1px solid var(--border);
+  }
+  .stat:last-child { border-right: none; }
+  .stat-num { font-family: var(--serif); font-size: 2.4rem; color: var(--rose); display: block; }
+  .stat-label { font-size: 0.78rem; color: var(--ink-light); margin-top: 0.3rem; text-transform: uppercase; letter-spacing: 0.07em; }
+
+  /* ── SECTION BASE ── */
+  section { padding: 6rem 2rem; }
+  .container { max-width: 1000px; margin: 0 auto; }
+  .section-eyebrow { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--rose); margin-bottom: 0.8rem; }
+  .section-title { font-family: var(--serif); font-size: clamp(2rem, 4vw, 3rem); line-height: 1.2; }
+  .section-title em { color: var(--rose); font-style: italic; }
+
+  /* ── WHY APPLY ── */
+  .why { background: white; }
+  .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2rem; margin-top: 3.5rem; }
+  .why-card {
+    padding: 2rem; border: 1px solid var(--border); border-radius: 16px;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .why-card:hover { border-color: var(--rose-light); transform: translateY(-4px); }
+  .why-icon { font-size: 2rem; margin-bottom: 1rem; }
+  .why-card h3 { font-family: var(--serif); font-size: 1.25rem; margin-bottom: 0.6rem; }
+  .why-card p { font-size: 0.9rem; line-height: 1.7; color: var(--ink-mid); }
+
+  /* ── TESTIMONIALS ── */
+  .testimonials { background: var(--rose-pale); }
+  .testi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+  .testi-card {
+    background: white; border-radius: 16px; padding: 1.8rem;
+    border: 1px solid var(--border);
+  }
+  .testi-stars { color: var(--gold); font-size: 0.9rem; margin-bottom: 1rem; letter-spacing: 2px; }
+  .testi-text { font-family: var(--serif); font-size: 1rem; line-height: 1.65; color: var(--ink); font-style: italic; margin-bottom: 1.2rem; }
+  .testi-author { font-size: 0.8rem; font-weight: 500; color: var(--ink-light); }
+  .testi-outcome { display: inline-block; margin-top: 0.5rem; font-size: 0.72rem; background: var(--rose-light); color: var(--rose-dark); padding: 0.2rem 0.7rem; border-radius: 100px; }
+
+  /* ── FAQ ── */
+  .faq { background: white; }
+  .faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem 4rem; margin-top: 3rem; }
+  .faq-item { border-bottom: 1px solid var(--border); padding-bottom: 1.5rem; }
+  .faq-q { font-family: var(--serif); font-size: 1rem; margin-bottom: 0.6rem; }
+  .faq-a { font-size: 0.88rem; line-height: 1.7; color: var(--ink-mid); }
+
+  /* ── FORM ── */
+  .form-section { background: var(--cream); }
+  .form-wrap {
+    background: white; border-radius: 24px; border: 1px solid var(--border);
+    max-width: 720px; margin: 3rem auto 0; overflow: hidden;
+  }
+  .form-header-band {
+    background: linear-gradient(135deg, var(--rose-dark) 0%, var(--rose) 100%);
+    padding: 2.5rem 2.5rem 2rem; color: white; text-align: center;
+  }
+  .form-header-band h2 { font-family: var(--serif); font-size: 2rem; font-weight: 700; margin-bottom: 0.4rem; }
+  .form-header-band p { font-size: 0.88rem; opacity: 0.85; }
+  .form-body { padding: 2.5rem; }
+  .form-section-label {
+    font-size: 0.68rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--rose); margin: 1.8rem 0 1rem; display: block;
+    border-bottom: 1px solid var(--rose-light); padding-bottom: 0.5rem;
+  }
+  .form-section-label:first-child { margin-top: 0; }
+  .field-group { margin-bottom: 1.2rem; }
+  .field-group label { display: block; font-size: 0.82rem; font-weight: 500; color: var(--ink-mid); margin-bottom: 0.4rem; }
+  .field-group input, .field-group select, .field-group textarea {
+    width: 100%; padding: 0.75rem 1rem; border: 1px solid var(--border); border-radius: 10px;
+    font-family: var(--sans); font-size: 0.9rem; color: var(--ink); background: var(--cream);
+    transition: border-color 0.2s, box-shadow 0.2s; outline: none;
+    appearance: none;
+  }
+  .field-group input:focus, .field-group select:focus, .field-group textarea:focus {
+    border-color: var(--rose); box-shadow: 0 0 0 3px rgba(212,83,126,0.12);
+  }
+  .field-group textarea { resize: vertical; min-height: 90px; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .checkbox-list { display: flex; flex-direction: column; gap: 0.6rem; }
+  .check-item { display: flex; align-items: flex-start; gap: 0.7rem; font-size: 0.88rem; color: var(--ink-mid); line-height: 1.5; cursor: pointer; }
+  .check-item input[type=checkbox] { width: 16px; height: 16px; margin-top: 2px; flex-shrink: 0; accent-color: var(--rose); cursor: pointer; }
+  .disclaimer-box {
+    background: var(--gold-light); border: 1px solid var(--gold); border-radius: 10px;
+    padding: 1rem 1.2rem; font-size: 0.8rem; line-height: 1.6; color: #7A5A1A;
+    margin: 1.5rem 0;
+  }
+  .disclaimer-box strong { color: var(--gold); }
+  .form-footer { display: flex; gap: 1rem; align-items: center; }
+  .btn-submit {
+    flex: 1; background: var(--rose); color: white; border: none;
+    padding: 1rem 2rem; border-radius: 100px; font-family: var(--sans);
+    font-size: 1rem; font-weight: 500; cursor: pointer;
+    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    box-shadow: 0 4px 16px rgba(212,83,126,0.3);
+  }
+  .btn-submit:hover { background: var(--rose-dark); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(212,83,126,0.4); }
+  .btn-withdraw-sm {
+    background: transparent; color: var(--ink-light); border: 1px solid var(--border);
+    padding: 1rem 1.5rem; border-radius: 100px; font-family: var(--sans);
+    font-size: 0.9rem; cursor: pointer; transition: border-color 0.2s, color 0.2s;
+    white-space: nowrap;
+  }
+  .btn-withdraw-sm:hover { border-color: var(--rose); color: var(--rose); }
+
+  /* ── SUCCESS ── */
+  .success-view { display: none; text-align: center; padding: 4rem 2.5rem; }
+  .success-icon { font-size: 3.5rem; display: block; margin-bottom: 1.5rem; animation: pop 0.5s cubic-bezier(0.34,1.56,0.64,1) both; }
+  .success-view h3 { font-family: var(--serif); font-size: 2rem; margin-bottom: 0.8rem; }
+  .success-view p { font-size: 0.95rem; line-height: 1.7; color: var(--ink-mid); max-width: 380px; margin: 0 auto 1.5rem; }
+  .ref-badge { display: inline-block; background: var(--rose-light); color: var(--rose-dark); padding: 0.3rem 1rem; border-radius: 100px; font-size: 0.8rem; font-weight: 500; margin-bottom: 1.5rem; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink); color: rgba(255,255,255,0.5);
+    padding: 3rem 2rem; text-align: center;
+  }
+  .footer-logo { font-family: var(--serif); font-size: 1.4rem; color: white; font-style: italic; margin-bottom: 0.8rem; }
+  footer p { font-size: 0.8rem; line-height: 1.7; max-width: 480px; margin: 0 auto 0.5rem; }
+  .footer-small { font-size: 0.7rem; margin-top: 1.5rem; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pop {
+    from { opacity: 0; transform: scale(0.4); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  @media (max-width: 700px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero h1 { font-size: 2.8rem; }
+    .two-col { grid-template-columns: 1fr; }
+    .faq-grid { grid-template-columns: 1fr; }
+    .form-body { padding: 1.5rem; }
+    .form-footer { flex-direction: column; }
+    .btn-withdraw-sm { width: 100%; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">♥ CrushApp™</div>
+  <ul class="nav-links">
+    <li><a href="#why">Why apply</a></li>
+    <li><a href="#testimonials">Testimonials</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#apply">Apply</a></li>
+  </ul>
+  <a href="#apply" class="nav-cta">Apply now</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-dots"></div>
+  <div class="hero-stamp">✦ Now accepting applications for Q3 2026</div>
+  <h1>Apply to Be<br><em>My Crush</em></h1>
+  <p class="hero-sub">
+    One coveted position. Unlimited butterflies. Submit your official application today and let fate — plus a thorough review process — decide.
+  </p>
+  <div class="hero-actions">
+    <a href="#apply" class="btn-primary">Start application →</a>
+    <a href="#why" class="btn-ghost">Learn more</a>
+  </div>
+  <p class="hero-note">No experience required. Feelings are not legally binding. Results may vary.</p>
+</div>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat reveal">
+    <span class="stat-num">1</span>
+    <span class="stat-label">Position available</span>
+  </div>
+  <div class="stat reveal">
+    <span class="stat-num">∞</span>
+    <span class="stat-label">Butterflies included</span>
+  </div>
+  <div class="stat reveal">
+    <span class="stat-num">0%</span>
+    <span class="stat-label">Guaranteed outcome</span>
+  </div>
+  <div class="stat reveal">
+    <span class="stat-num">2–6 wk</span>
+    <span class="stat-label">Avg. processing time</span>
+  </div>
+</div>
+
+<!-- WHY APPLY -->
+<section class="why" id="why">
+  <div class="container">
+    <p class="section-eyebrow reveal">Why apply</p>
+    <h2 class="section-title reveal">What's in it for <em>you?</em></h2>
+    <div class="why-grid">
+      <div class="why-card reveal">
+        <div class="why-icon">🫀</div>
+        <h3>Emotional ROI</h3>
+        <p>Successful applicants may experience heightened serotonin, uncontrollable smiling at their phone, and an inexplicable desire to make playlists.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-icon">📋</div>
+        <h3>A fair process</h3>
+        <p>Every application is reviewed with full bias toward vibes. We operate on a feelings-first framework with zero formal evaluation criteria.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-icon">🌹</div>
+        <h3>Premium experience</h3>
+        <p>Approved applicants unlock exclusive perks: inside jokes, unsolicited recommendations, and being the first person we think to text.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-icon">🤝</div>
+        <h3>Friend tier option</h3>
+        <p>Not selected as a crush? No worries. You may be automatically moved to the Friend Tier™, which is honestly also great.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="testimonials">
+  <div class="container">
+    <p class="section-eyebrow reveal">Testimonials</p>
+    <h2 class="section-title reveal">What <em>applicants</em> are saying</h2>
+    <div class="testi-grid">
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"The form asked me to name an ex who still likes me. I couldn't think of one. It was very clarifying."</p>
+        <div class="testi-author">— J.K., 27, submitted Feb 2026</div>
+        <span class="testi-outcome">⏳ Application pending</span>
+      </div>
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"I didn't get selected but I was placed in the Friend Tier™ immediately. Honestly works out. Free snacks."</p>
+        <div class="testi-author">— M.A., 24, submitted Oct 2025</div>
+        <span class="testi-outcome" style="background:#EAF3DE;color:#3B6D11;">✓ Friend Tier approved</span>
+      </div>
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★☆</div>
+        <p class="testi-text">"The disclaimer said my feelings were valid but not legally binding. Took 4 stars off for that. Lost one more for the 'no guarantees' clause."</p>
+        <div class="testi-author">— R.T., 31, submitted Jan 2026</div>
+        <span class="testi-outcome">⏳ Under review</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div class="container">
+    <p class="section-eyebrow reveal">FAQ</p>
+    <h2 class="section-title reveal">Frequently asked <em>questions</em></h2>
+    <div class="faq-grid">
+      <div class="faq-item reveal">
+        <p class="faq-q">How long does review take?</p>
+        <p class="faq-a">Anywhere from 3 days to the heat death of the universe. We recommend not checking your phone every 5 minutes. (You will check your phone every 5 minutes.)</p>
+      </div>
+      <div class="faq-item reveal">
+        <p class="faq-q">Can I re-apply after rejection?</p>
+        <p class="faq-a">Yes. The standard re-application cooldown is "a respectable amount of time." Exact duration is undefined but you'll know.</p>
+      </div>
+      <div class="faq-item reveal">
+        <p class="faq-q">Do I need prior experience?</p>
+        <p class="faq-a">No. However, knowing how to share a dessert, laugh at yourself, and send a timely meme will significantly strengthen your application.</p>
+      </div>
+      <div class="faq-item reveal">
+        <p class="faq-q">What does "approved" actually mean?</p>
+        <p class="faq-a">We're still figuring that out. Legally: nothing. Emotionally: a lot. We'll keep you posted.</p>
+      </div>
+      <div class="faq-item reveal">
+        <p class="faq-q">Is my personal information safe?</p>
+        <p class="faq-a">Your data is stored securely in a private notes app and may be replayed to the applicant's best friend multiple times.</p>
+      </div>
+      <div class="faq-item reveal">
+        <p class="faq-q">What if I don't know my star sign?</p>
+        <p class="faq-a">You may select "None (I'm normal)." This will be treated as a point in your favour by exactly half of our review panel.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APPLICATION FORM -->
+<section class="form-section" id="apply">
+  <div class="container">
+    <p class="section-eyebrow reveal" style="text-align:center;">The form itself</p>
+    <h2 class="section-title reveal" style="text-align:center;">Official <em>Application</em></h2>
+    <div class="form-wrap reveal">
+      <div class="form-header-band">
+        <h2>Application for Romantic Consideration</h2>
+        <p>Form CF-2026 · Department of Romantic Affairs · Feelings Division</p>
+      </div>
+
+      <div class="form-body" id="formBody">
+
+        <span class="form-section-label">Section A — Personal Details</span>
+
+        <div class="two-col">
+          <div class="field-group">
+            <label>First name *</label>
+            <input type="text" placeholder="e.g. Romeo">
+          </div>
+          <div class="field-group">
+            <label>Last name *</label>
+            <input type="text" placeholder="e.g. Montague">
+          </div>
+        </div>
+
+        <div class="two-col">
+          <div class="field-group">
+            <label>Age *</label>
+            <input type="number" placeholder="18+" min="18">
+          </div>
+          <div class="field-group">
+            <label>Star sign</label>
+            <select>
+              <option value="">— select —</option>
+              <option>Aries ♈</option><option>Taurus ♉</option><option>Gemini ♊</option>
+              <option>Cancer ♋</option><option>Leo ♌</option><option>Virgo ♍</option>
+              <option>Libra ♎</option><option>Scorpio ♏</option><option>Sagittarius ♐</option>
+              <option>Capricorn ♑</option><option>Aquarius ♒</option><option>Pisces ♓</option>
+              <option>None (I'm normal)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label>Primary love language *</label>
+          <select>
+            <option value="">— select one —</option>
+            <option>Words of affirmation</option>
+            <option>Acts of service</option>
+            <option>Receiving gifts (be honest)</option>
+            <option>Quality time</option>
+            <option>Physical touch</option>
+            <option>Memes (unofficial 6th)</option>
+          </select>
+        </div>
+
+        <span class="form-section-label">Section B — Qualifications</span>
+
+        <div class="field-group">
+          <label>Why should you be considered? * (50–5,000 words)</label>
+          <textarea placeholder="Include relevant achievements, fun facts, and at least one embarrassing story to demonstrate vulnerability…"></textarea>
+        </div>
+
+        <div class="field-group">
+          <label>Dealbreakers you do NOT have (check all that apply)</label>
+          <div class="checkbox-list" style="margin-top:0.5rem">
+            <label class="check-item"><input type="checkbox"> Chews with mouth open</label>
+            <label class="check-item"><input type="checkbox"> Types "ur" instead of "your"</label>
+            <label class="check-item"><input type="checkbox"> Leaves cupboard doors open</label>
+            <label class="check-item"><input type="checkbox"> Doesn't read the menu before ordering</label>
+            <label class="check-item"><input type="checkbox"> Replies to texts next-day without explanation</label>
+          </div>
+        </div>
+
+        <span class="form-section-label">Section C — References</span>
+
+        <div class="field-group">
+          <label>Name of best friend who can vouch for you *</label>
+          <input type="text" placeholder="They will be contacted immediately">
+        </div>
+
+        <div class="field-group">
+          <label>Name of one ex who still likes you</label>
+          <input type="text" placeholder="Optional — but impressive">
+        </div>
+
+        <span class="form-section-label">Section D — Declaration</span>
+
+        <div class="checkbox-list">
+          <label class="check-item"><input type="checkbox"> I confirm I am not currently on a situationship with someone else</label>
+          <label class="check-item"><input type="checkbox"> I agree to give at least 3 business days' notice before going quiet</label>
+          <label class="check-item"><input type="checkbox"> I understand this application does not guarantee reciprocation</label>
+          <label class="check-item"><input type="checkbox"> I have read and understood the Terms & Feelings (I have not)</label>
+        </div>
+
+        <div class="disclaimer-box">
+          <strong>Notice:</strong> Submitting this form does not guarantee approval, a response, or acknowledgement. The applicant's feelings are valid but not legally binding. This organisation reserves the right to keep you as a friend. Processing times may vary. All data stored in a diary and/or group chat.
+        </div>
+
+        <div class="form-footer">
+          <button class="btn-withdraw-sm" onclick="withdraw()">Withdraw</button>
+          <button class="btn-submit" onclick="submitApp()">Submit application →</button>
+        </div>
+
+      </div>
+
+      <div class="success-view" id="successView">
+        <span class="success-icon">💌</span>
+        <h3>Application received</h3>
+        <p>Thank you for your submission. Your application has been placed in the queue. Please allow <strong>2–6 weeks</strong>, several re-reads of your last conversation, and at least one stress-eat before hearing back.</p>
+        <span class="ref-badge" id="refBadge">Ref: CF-XXXXX-2026</span>
+        <p style="font-size:0.85rem;color:var(--ink-light);">You will not be notified if unsuccessful.</p>
+        <br>
+        <button class="btn-submit" style="max-width:220px" onclick="resetForm()">Submit another →</button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">♥ CrushApp™</div>
+  <p>The world's only officially unofficial portal for submitting your romantic candidacy. Est. 2026, probably.</p>
+  <p style="margin-top:0.4rem">All feelings disclaimed. No hearts were harmed in the making of this website.</p>
+  <p class="footer-small">© 2026 Department of Romantic Affairs · Feelings Division · Terms & Feelings apply</p>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 60);
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(r => io.observe(r));
+
+  function submitApp() {
+    document.getElementById('formBody').style.display = 'none';
+    const sv = document.getElementById('successView');
+    sv.style.display = 'block';
+    const ref = 'CF-' + Math.floor(Math.random()*90000+10000) + '-2026';
+    document.getElementById('refBadge').textContent = 'Ref: ' + ref;
+  }
+
+  function resetForm() {
+    document.getElementById('formBody').style.display = 'block';
+    document.getElementById('successView').style.display = 'none';
+  }
+
+  function withdraw() {
+    if (confirm('Are you sure you want to withdraw your application? Your feelings will be marked as unsubmitted.')) {
+      alert('Application withdrawn. We respect your decision. (We are sad.)');
+    }
+  }
+</script>
+</body>
+</html>
